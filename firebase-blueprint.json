@@ -1,0 +1,117 @@
+{
+  "entities": {
+    "Department": {
+      "title": "Department",
+      "description": "Medical departments in the hospital",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "services": { "type": "array", "items": { "type": "string" } },
+        "equipment": { "type": "array", "items": { "type": "string" } },
+        "slug": { "type": "string" }
+      },
+      "required": ["name", "slug"]
+    },
+    "Doctor": {
+      "title": "Doctor",
+      "description": "Medical professionals",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "qualification": { "type": "string" },
+        "experience": { "type": "number" },
+        "deptId": { "type": "string" },
+        "availability": { 
+          "type": "object",
+          "properties": {
+            "days": { "type": "array", "items": { "type": "string" } },
+            "slots": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "fee": { "type": "number" },
+        "bio": { "type": "string" },
+        "education": { "type": "string" },
+        "awards": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name", "deptId"]
+    },
+    "Surgery": {
+      "title": "Surgery",
+      "description": "Surgical procedures offered",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "risks": { "type": "array", "items": { "type": "string" } },
+        "cost": { "type": "number" },
+        "recoveryTime": { "type": "string" }
+      }
+    },
+    "Test": {
+      "title": "Test",
+      "description": "Laboratory and diagnostic tests",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "purpose": { "type": "string" },
+        "preparation": { "type": "string" },
+        "reportTime": { "type": "string" },
+        "category": { "type": "string", "enum": ["Blood", "Imaging", "Advanced"] }
+      }
+    },
+    "Medicine": {
+      "title": "Medicine",
+      "description": "Available pharmacy drugs",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "use": { "type": "string" },
+        "dosage": { "type": "string" },
+        "sideEffects": { "type": "string" },
+        "prescriptionRequired": { "type": "boolean" }
+      }
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Patient doctor consultations",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string" },
+        "patientName": { "type": "string" },
+        "doctorId": { "type": "string" },
+        "doctorName": { "type": "string" },
+        "deptId": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"] },
+        "symptoms": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Patient": {
+      "title": "Patient",
+      "description": "User profile data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "abhaId": { "type": "string" },
+        "medicalHistory": { "type": "array", "items": { "type": "string" } },
+        "isAdmin": { "type": "boolean" }
+      }
+    }
+  },
+  "firestore": {
+    "/departments/{deptId}": { "schema": "Department", "description": "Hospital departments" },
+    "/doctors/{doctorId}": { "schema": "Doctor", "description": "Medical practitioners" },
+    "/surgeries/{surgeryId}": { "schema": "Surgery", "description": "Surgical procedures" },
+    "/tests/{testId}": { "schema": "Test", "description": "Lab and diagnostic tests" },
+    "/medicines/{medId}": { "schema": "Medicine", "description": "Pharmacy inventory" },
+    "/appointments/{appId}": { "schema": "Appointment", "description": "Booking records" },
+    "/users/{userId}": { "schema": "Patient", "description": "User profiles" }
+  }
+}

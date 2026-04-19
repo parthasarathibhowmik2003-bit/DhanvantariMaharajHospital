@@ -1,0 +1,7 @@
+{
+  "name": "DhanvantariMaharajHospital",
+  "description": "A premier enterprise-grade multi-specialty hospital with AI-powered clinics and large-scale healthcare data systems.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
